@@ -4,20 +4,24 @@
 <meta charset="utf-8">
 <title>Yaşam Çarkı – Zoetrope | AR</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#e8e8e8">
-<script src="https://cdn.jsdelivr.net/npm/aframe@1.5.0/dist/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+<meta name="theme-color" content="#e5e5e5">
+<script src="assets/aframe.min.js"></script>
+<script src="assets/mindar-image-aframe.prod.js"></script>
 <style>
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:900;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/files/montserrat-latin-ext-900-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:900;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/files/montserrat-latin-900-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
-@font-face{font-family:'Urbanist';font-style:normal;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Urbanist';font-style:normal;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
-@font-face{font-family:'Urbanist';font-style:italic;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-ext-500-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Urbanist';font-style:italic;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-500-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
-@font-face{font-family:'Urbanist';font-style:normal;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Urbanist';font-style:normal;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
-@font-face{font-family:'Urbanist';font-style:italic;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-ext-600-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Urbanist';font-style:italic;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@fontsource/urbanist@5/files/urbanist-latin-600-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/montserrat-latin-ext-900-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/montserrat-latin-900-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Urbanist';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/urbanist-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Urbanist';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/urbanist-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Urbanist';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/urbanist-latin-ext-400-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Urbanist';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/urbanist-latin-400-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Urbanist';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/urbanist-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Urbanist';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/urbanist-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Urbanist';font-style:italic;font-weight:500;font-display:swap;src:url(assets/fonts/urbanist-latin-ext-500-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Urbanist';font-style:italic;font-weight:500;font-display:swap;src:url(assets/fonts/urbanist-latin-500-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Urbanist';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/urbanist-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Urbanist';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/urbanist-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Urbanist';font-style:italic;font-weight:600;font-display:swap;src:url(assets/fonts/urbanist-latin-ext-600-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Urbanist';font-style:italic;font-weight:600;font-display:swap;src:url(assets/fonts/urbanist-latin-600-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 
   :root { --red:#ed2a2e; --ink:#000; --bg:#e8e8e8; --body:'Urbanist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; --head:'Montserrat','Arial Black',Arial,sans-serif; }
   * { box-sizing:border-box; }
@@ -27,7 +31,7 @@
            padding:24px; text-align:center; background:var(--bg); color:var(--ink); }
   .layer[hidden] { display:none; }
 
-  /* Başlık + damga (tasarıma göre) – sadece burada Montserrat */
+  /* Başlık + damga (tasarıma göre) */
   .brand { font-size:clamp(26px, 9vw, 64px); }
   .brand .ttl { position:relative; display:inline-block; margin:1.3em 1.7em 0 0; }
   .brand h1 { margin:0; font-family:var(--head); font-weight:900; font-size:1em; line-height:1; letter-spacing:0; color:#000; white-space:nowrap; text-transform:uppercase; }
@@ -36,19 +40,18 @@
            font-family:var(--head); font-weight:900; font-size:1.02em; line-height:1; white-space:nowrap; letter-spacing:.005em; }
   .stamp svg.star { position:absolute; left:100%; bottom:100%; width:10.6%; height:auto; margin-bottom:-1.7%; overflow:visible; }
 
-  /* Diğer tüm yazılar Urbanist */
-  p.lead { max-width:min(86vw, 17.5em); margin:1.4em 0 1.7em; font-family:var(--body); font-size:clamp(16px, 4.6vw, 22px); line-height:1.4; font-weight:500; text-wrap:balance; }
+  p.lead { max-width:min(86vw, 17.5em); margin:1.4em 0 1.7em; font-size:clamp(16px, 4.6vw, 22px); line-height:1.4; font-weight:500; text-wrap:balance; }
   button, .btn { appearance:none; border:0; background:var(--red); color:#f6e9e9; font-family:var(--body); font-style:italic; font-weight:600;
            font-size:clamp(22px, 6.4vw, 30px); line-height:1; padding:.55em 1.7em .6em; border-radius:999px; cursor:pointer; text-decoration:none; }
-  .link { display:block; margin-top:1.6em; color:#8a8a8e; font-family:var(--body); font-style:italic; font-weight:500; font-size:clamp(14px, 3.9vw, 17px); text-decoration:underline; }
+  .link { display:block; margin-top:1.6em; color:#8a8a8e; font-style:italic; font-weight:500; font-size:clamp(14px, 3.9vw, 17px); text-decoration:underline; }
 
   #hud { position:fixed; left:0; right:0; bottom:0; z-index:9; padding:16px 16px calc(16px + env(safe-area-inset-bottom));
          display:flex; flex-direction:column; align-items:center; gap:10px; pointer-events:none; }
-  #hint { background:rgba(0,0,0,.65); color:#fff; padding:10px 18px; border-radius:999px; font-family:var(--body); font-size:15px; font-weight:500; transition:opacity .3s; }
+  #hint { background:rgba(0,0,0,.65); color:#fff; padding:10px 18px; border-radius:999px; font-size:15px; font-weight:500; transition:opacity .3s; }
   #hint.off { opacity:0; }
   #sound { pointer-events:auto; position:fixed; top:calc(14px + env(safe-area-inset-top)); right:14px; z-index:11;
            width:46px; height:46px; padding:0; font-size:22px; font-style:normal; background:rgba(0,0,0,.6); display:none; }
-  #loading { position:fixed; inset:0; z-index:12; background:var(--bg); color:var(--ink); display:none; align-items:center; justify-content:center; font-family:var(--body); font-weight:600; font-size:18px; }
+  #loading { position:fixed; inset:0; z-index:12; background:var(--bg); color:var(--ink); display:none; align-items:center; justify-content:center; font-weight:600; font-size:18px; }
   .a-enter-vr, .a-enter-ar { display:none !important; }
   video#vid { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
 </style>
@@ -76,15 +79,12 @@
 
 <a-scene id="scene"
   mindar-image="imageTargetSrc: assets/poster.mind; autoStart: false; uiLoading: no; uiScanning: no; uiError: no; filterMinCF: 0.0005; filterBeta: 20; missTolerance: 8; warmupTolerance: 3;"
+  color-space="sRGB" renderer="colorManagement: true; physicallyCorrectLights: true"
   embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
   <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
   <a-entity mindar-image-target="targetIndex: 0" id="target">
-    <!--
-      Afiş 64x90 cm  -> genişlik = 1 birim, yükseklik = 90/64 = 1.40625
-      Video 9:16 (1080x1920), afişin tam yükseklikte MERKEZ kırpması ile birebir örtüşür:
-      yükseklik = 1.40625, genişlik = 1.40625 x 9/16 = 0.79102 (afişin ortasında, yanlarda ~%10'ar afiş görünür)
-    -->
-    <a-plane id="plane" position="0 0 0.001" width="0.79102" height="1.40625" material="shader: flat; src: #vid; transparent: false"></a-plane>
+    <!-- Afiş genişliği = 1 birim; yükseklik = 2576/1450 ≈ 1.7766 -->
+    <a-plane id="plane" position="0 0 0.001" width="1" height="1.7766" material="shader: flat; src: #vid; transparent: false" visible="true"></a-plane>
   </a-entity>
 </a-scene>
 
@@ -94,28 +94,21 @@
   var scene = document.getElementById('scene');
   var hint = document.getElementById('hint');
   var soundBtn = document.getElementById('sound');
-  var started = false;
+  var started = false, found = false, wantSound = true;
 
   function setSoundIcon() { soundBtn.textContent = vid.muted ? '🔇' : '🔊'; }
-  soundBtn.addEventListener('click', function () { vid.muted = !vid.muted; setSoundIcon(); });
-
-  function showError() {
-    document.getElementById('loading').style.display = 'none';
-    soundBtn.style.display = 'none';
-    document.getElementById('error').hidden = false;
-  }
+  soundBtn.addEventListener('click', function () { vid.muted = !vid.muted; wantSound = !vid.muted; setSoundIcon(); });
 
   scene.addEventListener('loaded', function () {
     var target = document.getElementById('target');
     target.addEventListener('targetFound', function () {
-      hint.classList.add('off');
+      found = true; hint.classList.add('off');
       var p = vid.play(); if (p && p.catch) p.catch(function () {});
     });
     target.addEventListener('targetLost', function () {
-      vid.pause(); hint.classList.remove('off');
+      found = false; vid.pause(); hint.classList.remove('off');
     });
   });
-  scene.addEventListener('arError', showError);
 
   document.getElementById('go').addEventListener('click', function () {
     if (started) return; started = true;
@@ -125,18 +118,21 @@
     // Kullanıcı dokunuşu sırasında videoyu "hazırla" (iOS/Android oynatma izni için)
     vid.muted = false;
     var p = vid.play();
-    var prime = (p && p.then)
-      ? p.then(function () { vid.pause(); vid.currentTime = 0; }).catch(function () { vid.muted = true; })
-      : Promise.resolve();
+    var prime = (p && p.then) ? p.then(function () { vid.pause(); vid.currentTime = 0; })
+                                .catch(function () { vid.muted = true; }) : Promise.resolve();
+    prime.then(function () { setSoundIcon(); });
 
-    var start = function () {
-      var sys = scene.systems['mindar-image-system'];
-      prime.then(function () { return sys.start(); }).then(function () {
+    var sys = scene.systems['mindar-image-system'];
+    var go = function () {
+      Promise.resolve(sys.start()).then(function () {
         document.getElementById('loading').style.display = 'none';
         hint.classList.remove('off'); soundBtn.style.display = 'block'; setSoundIcon();
-      }).catch(showError);
+      }).catch(function () {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').hidden = false;
+      });
     };
-    if (scene.hasLoaded) start(); else scene.addEventListener('loaded', start);
+    if (scene.hasLoaded) go(); else scene.addEventListener('loaded', go);
   });
 })();
 </script>
