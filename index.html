@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Yaşam Çarkı – Zoetrope | AR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#e5e5e5">
+<script src="assets/aframe.min.js"></script>
+<script src="assets/mindar-image-aframe.prod.js"></script>
+<style>
+  :root { --red:#ee2a2e; --ink:#323337; --bg:#e5e5e5; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; overflow:hidden; }
+  a-scene { position:fixed; inset:0; }
+  .layer { position:fixed; inset:0; z-index:10; display:flex; flex-direction:column; align-items:center; justify-content:center;
+           padding:24px; text-align:center; background:var(--bg); color:var(--ink); }
+  .layer[hidden] { display:none; }
+  h1 { margin:0 0 4px; font-size:30px; letter-spacing:.5px; font-weight:900; }
+  h1 span { display:inline-block; color:var(--red); border:3px solid var(--red); border-radius:8px; padding:0 8px; transform:rotate(-3deg); margin-top:6px; }
+  p { max-width:320px; line-height:1.45; margin:14px 0 22px; font-size:16px; }
+  button, .btn { appearance:none; border:0; background:var(--red); color:#fff; font:inherit; font-weight:800; font-size:18px;
+           padding:15px 34px; border-radius:999px; cursor:pointer; text-decoration:none; }
+  .link { display:block; margin-top:18px; color:var(--ink); font-size:14px; opacity:.75; }
+  #hud { position:fixed; left:0; right:0; bottom:0; z-index:9; padding:16px 16px calc(16px + env(safe-area-inset-bottom));
+         display:flex; flex-direction:column; align-items:center; gap:10px; pointer-events:none; }
+  #hint { background:rgba(0,0,0,.65); color:#fff; padding:10px 18px; border-radius:999px; font-size:15px; transition:opacity .3s; }
+  #hint.off { opacity:0; }
+  #sound { pointer-events:auto; position:fixed; top:calc(14px + env(safe-area-inset-top)); right:14px; z-index:11;
+           width:46px; height:46px; padding:0; font-size:22px; background:rgba(0,0,0,.6); display:none; }
+  #loading { position:fixed; inset:0; z-index:12; background:var(--bg); color:var(--ink); display:none; align-items:center; justify-content:center; font-weight:700; }
+  .a-enter-vr, .a-enter-ar { display:none !important; }
+  video#vid { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+</style>
+</head>
+<body>
+
+<div class="layer" id="start">
+  <h1>YAŞAM ÇARKI<br><span>ZOETROPE</span></h1>
+  <p>Başla'ya dokun, kamerana izin ver ve kamerayı afişe doğrult. Animasyon afişin üzerinde canlanacak.</p>
+  <button id="go">Başla</button>
+  <a class="link" href="assets/animasyon.mp4">Kamera olmadan videoyu izle</a>
+</div>
+
+<div class="layer" id="error" hidden>
+  <h1>Kameraya erişilemedi</h1>
+  <p>AR için kamera izni gerekiyor. Tarayıcı ayarlarından izin verip sayfayı yenileyebilir ya da videoyu doğrudan izleyebilirsin.</p>
+  <a class="btn" href="assets/animasyon.mp4">Videoyu izle</a>
+</div>
+
+<div id="loading">Yükleniyor…</div>
+<button id="sound" aria-label="Sesi aç/kapat">🔇</button>
+<div id="hud"><div id="hint" class="off">Kamerayı afişe doğrult</div></div>
+
+<video id="vid" src="assets/animasyon.mp4" loop playsinline webkit-playsinline muted preload="auto"></video>
+
+<a-scene id="scene"
+  mindar-image="imageTargetSrc: assets/poster.mind; autoStart: false; uiLoading: no; uiScanning: no; uiError: no; filterMinCF: 0.0005; filterBeta: 20; missTolerance: 8; warmupTolerance: 3;"
+  color-space="sRGB" renderer="colorManagement: true; physicallyCorrectLights: true"
+  embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+  <a-entity mindar-image-target="targetIndex: 0" id="target">
+    <!-- Afiş genişliği = 1 birim; yükseklik = 2576/1450 ≈ 1.7766 -->
+    <a-plane id="plane" position="0 0 0.001" width="1" height="1.7766" material="shader: flat; src: #vid; transparent: false" visible="true"></a-plane>
+  </a-entity>
+</a-scene>
+
+<script>
+(function () {
+  var vid = document.getElementById('vid');
+  var scene = document.getElementById('scene');
+  var hint = document.getElementById('hint');
+  var soundBtn = document.getElementById('sound');
+  var started = false, found = false, wantSound = true;
+
+  function setSoundIcon() { soundBtn.textContent = vid.muted ? '🔇' : '🔊'; }
+  soundBtn.addEventListener('click', function () { vid.muted = !vid.muted; wantSound = !vid.muted; setSoundIcon(); });
+
+  scene.addEventListener('loaded', function () {
+    var target = document.getElementById('target');
+    target.addEventListener('targetFound', function () {
+      found = true; hint.classList.add('off');
+      var p = vid.play(); if (p && p.catch) p.catch(function () {});
+    });
+    target.addEventListener('targetLost', function () {
+      found = false; vid.pause(); hint.classList.remove('off');
+    });
+  });
+
+  document.getElementById('go').addEventListener('click', function () {
+    if (started) return; started = true;
+    document.getElementById('start').hidden = true;
+    document.getElementById('loading').style.display = 'flex';
+
+    // Kullanıcı dokunuşu sırasında videoyu "hazırla" (iOS/Android oynatma izni için)
+    vid.muted = false;
+    var p = vid.play();
+    var prime = (p && p.then) ? p.then(function () { vid.pause(); vid.currentTime = 0; })
+                                .catch(function () { vid.muted = true; }) : Promise.resolve();
+    prime.then(function () { setSoundIcon(); });
+
+    var sys = scene.systems['mindar-image-system'];
+    var go = function () {
+      Promise.resolve(sys.start()).then(function () {
+        document.getElementById('loading').style.display = 'none';
+        hint.classList.remove('off'); soundBtn.style.display = 'block'; setSoundIcon();
+      }).catch(function () {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').hidden = false;
+      });
+    };
+    if (scene.hasLoaded) go(); else scene.addEventListener('loaded', go);
+  });
+})();
+</script>
+</body>
+</html>
